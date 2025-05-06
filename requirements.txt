@@ -1,0 +1,13 @@
+# Backend dependencies
+fastapi
+uvicorn
+firebase-admin
+
+# Common
+requests
+
+# Streamlit dashboard dependencies
+streamlit
+plotly
+pandas
+
