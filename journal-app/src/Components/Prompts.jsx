@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
+// import './Journal.css';
+
 
 const WritingPrompts = ({ onSelectPrompt }) => {
   const [prompts, setPrompts] = useState([
@@ -10,7 +12,7 @@ const WritingPrompts = ({ onSelectPrompt }) => {
   ]);
 
   useEffect(() => {
-    // Optionally fetch custom prompts from Firebase
+   
     const fetchPrompts = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "writing_prompts"));
@@ -27,16 +29,17 @@ const WritingPrompts = ({ onSelectPrompt }) => {
 
   return (
     <div>
-      <h3>Writing Prompts</h3>
+      <div style={{ fontWeight: 500, marginBottom: '0.5rem' }}>Need inspiration?</div>
       <div>
-        {prompts.map((prompt, index) => (
-          <div
-            key={index}
-            style={{ cursor: 'pointer', marginBottom: '8px' }}
-            onClick={() => onSelectPrompt && onSelectPrompt(prompt)}
+        {prompts.map((prompt, idx) => (
+          <button
+            key={idx}
+            className="prompt-item"
+            onClick={() => onSelectPrompt(prompt)}
+            type="button"
           >
             {prompt}
-          </div>
+          </button>
         ))}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+// import Navbar from './Components/Navbar/Navbar';
 
 function App() {
   const [journalText, setJournalText] = useState('');
@@ -66,9 +67,10 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* <Navbar /> */}
       <h1>Emotion Journal</h1>
 
-      <textarea
+      <textarea 
         value={journalText}
         onChange={(e) => setJournalText(e.target.value)}
         placeholder="Write about your thoughts and feelings..."
@@ -77,11 +79,11 @@ function App() {
       />
 
       <div className="button-group">
-        <button onClick={handleAnalyze} disabled={loading}>
+        <button onClick={handleAnalyze} disabled={loading} className='btn1'>
           {loading ? 'Analyzing...' : 'Analyze Emotion'}
         </button>
 
-        <button onClick={handleSaveEntry} disabled={saving}>
+        <button onClick={handleSaveEntry} disabled={saving} className='btn2'>
           {saving ? 'Saving...' : 'Save Entry'}
         </button>
       </div>

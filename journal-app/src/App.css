@@ -3,8 +3,36 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color:black;
+}
+.app-container > h1 {
+  color : white ;
+}
+.result> h2 , .result > h3 , .result>p , .result>ul{
+  color:black;
+  background-color: #4CAF50;
 }
 
+.app-container{ background-color: #4CAF50; width : 150%;
+
+}
+
+.journal-input{
+  padding: 15px 15px;
+  margin :10px 10px;
+  border-radius: 7px;
+  /* border: black; */
+  width: 60%;
+  height : 80%;
+  font-size: 35px;
+}
+
+.btn1, .btn2{
+  padding:15px 15px;
+  margin : 7px 7px;
+  background-color: #45a049;
+  font-size: 30px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

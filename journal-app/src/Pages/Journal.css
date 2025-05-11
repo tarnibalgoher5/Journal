@@ -1,0 +1,135 @@
+/* Enhanced JournalEntry.css */
+
+.journal-container {
+    max-width: 560px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  .journal-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    color: #3c3c3c;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .journal-textarea {
+    width: 100%;
+    min-height: 140px;
+    resize: vertical;
+    padding: 1.2rem;
+    border: 1.8px solid #d1c4e9;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    margin-bottom: 1.5rem;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+  }
+  .journal-textarea:focus {
+    border-color: #7e57c2;
+    background-color: #faf8ff;
+    outline: none;
+  }
+  
+  .journal-button {
+    background: linear-gradient(to right, #7e57c2, #9575cd);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(126, 87, 194, 0.2);
+  }
+  .journal-button:disabled {
+    background: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .journal-button:not(:disabled):hover {
+    background: linear-gradient(to right, #5e35b1, #7e57c2);
+  }
+  
+  .prompts-container {
+    margin: 2rem 0;
+    padding: 1.2rem;
+    background: #f8f6ff;
+    border-left: 4px solid #7e57c2;
+    border-radius: 12px;
+  }
+  
+  .prompt-item {
+    background: #ede7f6;
+    color: #5e35b1;
+    border: 1px solid #d1c4e9;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin: 0.4rem 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  .prompt-item:hover {
+    background: #d8cde9;
+    transform: translateY(-1px);
+  }
+  
+  .emotion-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0 1rem 0;
+    justify-content: center;
+  }
+  
+  .emotion-badge {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 24px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1rem;
+    background: #7e57c2;
+    box-shadow: 0 3px 10px rgba(126, 87, 194, 0.1);
+  }
+  
+  .activity-list {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: #f3e5f5;
+    border-radius: 12px;
+    color: #4a148c;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 600px) {
+    .journal-container {
+      padding: 1.2rem;
+    }
+  
+    .journal-title {
+      font-size: 1.6rem;
+    }
+  
+    .journal-button {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  
+    .emotion-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
