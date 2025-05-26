@@ -33,7 +33,7 @@ const JournalEntry = () => {
     if (!text.trim()) return;
     setIsAnalyzing(true);
     try {
-      const response = await fetch('http://localhost:8000/analyze_emotion', {
+      const response = await fetch('https://journal-backend-sigma.vercel.app/analyze_emotion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, userId: auth.currentUser?.uid || 'anonymous' }),
