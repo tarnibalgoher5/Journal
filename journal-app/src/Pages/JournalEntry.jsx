@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db, auth } from '../firebase';
-import EmotionDisplay from './EmotionDisplay';
-import ActivityRecommendations from './ActivityRecommendations';
-import WritingPrompts from './WritingPrompts';
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
+import { db, auth } from '../../firebase';
+import EmotionDisplay from '../Components/EmotionDisplay';
+import ActivityRecommendations from '../Components/ActivityRecommendations';
+import WritingPrompts from '../Components/WritingPrompts';
 import './Journal.css';
-// import Navbar from '../Components/Navbar/Navbar';
 
 const JournalEntry = () => {
   const [text, setText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [showPrompts, setShowPrompts] = useState(true);
+  const [previousEntries, setPreviousEntries] = useState([]);
+
+  const fetchPreviousEntries = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'journal_entries'));
+      const entriesData = querySnapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds);
+      setPreviousEntries(entriesData);
+    } catch (error) {
+      console.error("Error fetching previous entries:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPreviousEntries();
+  }, []);
 
   const analyzeEmotion = async () => {
     if (!text.trim()) return;
@@ -25,7 +41,7 @@ const JournalEntry = () => {
       const result = await response.json();
       setAnalysisResult(result);
       setShowPrompts(false);
-      // Save to Firebase
+
       await addDoc(collection(db, "journal_entries"), {
         text,
         userId: auth.currentUser?.uid || 'anonymous',
@@ -33,6 +49,8 @@ const JournalEntry = () => {
         topEmotion: result.top_emotion,
         timestamp: serverTimestamp()
       });
+
+      fetchPreviousEntries();
     } catch (error) {
       console.error("Error analyzing emotion:", error);
     } finally {
@@ -48,7 +66,6 @@ const JournalEntry = () => {
 
   return (
     <div className="journal-container">
-      {/* <Navbar /> */}
       <h2 className="journal-title">New Journal Entry</h2>
       <textarea
         className="journal-textarea"
@@ -57,36 +74,60 @@ const JournalEntry = () => {
         onChange={e => setText(e.target.value)}
         disabled={isAnalyzing}
       />
-      <div>
+      <div className="button-group">
         <button
           className="journal-button"
           onClick={analyzeEmotion}
-          disabled={isAnalyzing || !text.trim()}
+          disabled={isAnalyzing || !text.trim()} 
         >
           {isAnalyzing ? 'Analyzing...' : 'Analyze Emotion'}
         </button>
         {analysisResult && (
-          <button className="journal-button" onClick={handleNewEntry} style={{ marginLeft: '1rem' }}>
+          <button
+            className="journal-button secondary-button"
+            onClick={handleNewEntry}
+          >
             New Entry
           </button>
         )}
       </div>
+
       {showPrompts && (
         <div className="prompts-container">
           <WritingPrompts onSelectPrompt={prompt => setText(prompt)} />
         </div>
       )}
+
       {analysisResult && (
         <>
           <EmotionDisplay emotions={analysisResult.emotions} />
           <ActivityRecommendations
             activities={analysisResult.activities}
-            emotion={analysisResult.top_emotion}
+            // emotion={analysisResult.top_emotion}
           />
         </>
       )}
+
+      <div className="previous-entries">
+        <h3>Previous Entries</h3>
+        {previousEntries.length === 0 ? (
+          <p>No previous entries found.</p>
+        ) : (
+          previousEntries.map(entry => (
+            <div key={entry.id} className="entry-card">
+              <p className="entry-text">{entry.text}</p>
+              <small>
+                {entry.timestamp?.toDate
+                  ? entry.timestamp.toDate().toLocaleString()
+                  : 'Date unavailable'}
+              </small>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
 
 export default JournalEntry;
+

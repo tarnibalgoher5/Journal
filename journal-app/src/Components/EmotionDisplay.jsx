@@ -18,7 +18,7 @@ const EmotionDisplay = ({ emotions }) => {
         >
           {emotion.name}: {Math.round(emotion.score * 100)}%
         </span>
-      ))}
+      ))} 
     </div>
   );
 };
