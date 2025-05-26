@@ -6,6 +6,7 @@ import ActivityRecommendations from '../Components/ActivityRecommendations';
 import WritingPrompts from '../Components/WritingPrompts';
 import './Journal.css';
 
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 const JournalEntry = () => {
   const [text, setText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
