@@ -3,6 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import './App.css';
 
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 function App() {
   const [journalText, setJournalText] = useState('');
   const [result, setResult] = useState(null);
