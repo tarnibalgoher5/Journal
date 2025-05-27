@@ -41,7 +41,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch('https://journal-backend-sigma.vercel.app/analyze_emotion', {
+      const response = await fetch('https://journal-backend-azure.vercel.app/analyze_emotion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: journalText, userId })
